@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Navbar @onChangeInput="onChangeInput"/>
-    <router-view :searchInput="searchInput"/>
+    <Navbar />
+    <router-view />
   </div>
 </template>
 
@@ -11,12 +11,16 @@ export default {
   components: { Navbar },
   data (){
     return {
-      searchInput: ''
+      searchInput: '',
+      currentPage: undefined
     }
   },
   methods: {
     onChangeInput(e){
       this.searchInput = e
+    },
+    changePage(e){
+      this.currentPage = e
     }
   }
 };
