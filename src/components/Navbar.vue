@@ -178,6 +178,7 @@ body {
 .backToHome {
   position: absolute;
   left: 2rem; top: 3rem;
+  gap: 1rem;
   align-items: baseline;
 }
 
