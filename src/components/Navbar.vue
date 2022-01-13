@@ -66,6 +66,7 @@ export default {
   methods: {
     filterByStatus(){
       this.$store.dispatch("Characters/setStatus", this.status)
+      this.$store.dispatch("Characters/setCurrentPage", 1)
       this.filterCharacter()
     },
     onSearchClick(){
