@@ -84,6 +84,13 @@ export default {
 
 <style>
 
+  @media screen and (max-width: 772px){
+
+    .character_box {
+      justify-content: center!important;
+    }
+  }
+
 
 
   .characters {
@@ -93,15 +100,16 @@ export default {
   }
 
 
+
   #loader {
     position: fixed;
     top: 50%; left: 50%; transform: translate(-50%, 50%);
   }
 
   .character_box {
-    margin: 0 auto;
+    margin: 0 auto!important;
     width: 80%;
-    gap: 1rem;
+    gap: 2rem;
     justify-content: space-between;
     height: fit-content;
     display: flex;
@@ -109,6 +117,8 @@ export default {
     flex-wrap: wrap;
     padding-bottom: 2rem;
   }
+
+
 
   .vs-card-content.type-4 .vs-card__text {
     width: 100%;

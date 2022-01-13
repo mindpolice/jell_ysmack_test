@@ -4,25 +4,17 @@
 
 
 
-      <!-- Back to home header -->
-      <div class="row justify"  @click="backToHome">
-        <vs-button circle icon >
-          <svg  xmlns="http://www.w3.org/2000/svg" width="12" viewBox="0 0 24 24" fill="white"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
-        </vs-button>
-        <div> Back to Home</div>
-      </div>
+
 
       <!-- Component main container -->
-      <div class="row" style="gap: 2rem; justify-content: space-evenly">
+      <div class="row selectedCharacterContainer" style="gap: 2rem; justify-content: space-evenly">
+        <vs-card type="4" class="card" >
 
-
-        <vs-card type="4" >
           <template #title>
             <h3> {{ character? character.name : charactersFiltered.name }}</h3>
           </template>
           <template #text>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
             </p>
           </template>
           <template #img>
@@ -30,11 +22,22 @@
           </template>
         </vs-card>
 
-        <div class="col" style="align-items: flex-start">
 
-            <div class="row baseline"><h4>Species </h4> <p>{{ character? character.species : charactersFiltered.species }}</p></div>
+        <div class="separator"></div>
+
+        <!-- Character informations -->
+        <div class="col infos" >
+
+            <div class="row baseline">
+              <h4>Species </h4> <p>{{ character? character.species : charactersFiltered.species }}</p>
+
+              <h4>Status </h4> <p>{{ character? character.status : charactersFiltered.status }}</p>
+              </div>
+
             <div class="row baseline"><h4>Gender </h4> <p>{{ character? character.gender : charactersFiltered.gender }}</p></div>
             <div class="row baseline"><h4>Origin </h4> <p>{{ character? character.origin.name : charactersFiltered.origin.name }}</p></div>
+            <div class="row baseline"><h4>Present in </h4> <p>{{ character? character.episode.length : charactersFiltered.episode.length }}</p> episodes</div>
+
         </div>
 
 
@@ -54,13 +57,9 @@ export default {
     character: Array
   },
   created() {
+    // Exception handling if user refreshes the page or shares the link, will GET queried user
     if(this.character === undefined) {
       this.$store.dispatch('Characters/fetchCharacterById', this.id);
-    }
-  },
-  methods: {
-    backToHome(){
-      this.$router.push('/characters')
     }
   },
   computed: {
@@ -73,19 +72,55 @@ export default {
 
 <style scoped>
 
+@media screen and (max-width: 710px){
+  .selectedCharacterContainer {
+    flex-direction: column!important;
+    align-items: center!important;
+  }
+
+
+  .card {
+    width: 100% !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .infos {
+    width: auto!important;
+    margin: 0 auto!important;
+  }
+
+}
+
 .selectedCharacter {
   margin: 8rem 2% 0 2%;
 }
 
+
 .justify {
-   align-items: baseline;
-  margin-bottom: 2rem;
+    align-items: baseline;
+    margin-bottom: 2rem;
 }
 
 .baseline {
   align-items: baseline;
 
   gap: 1rem;
+}
+
+.separator {
+  width: 2px;
+  background-color: #eee;
+  height: auto;
+}
+
+.card {
+  width: 30%;
+}
+
+.infos {
+  align-items: flex-start; width: 30%;
 }
 
 </style>

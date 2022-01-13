@@ -3,14 +3,21 @@
     <p class="header">
       Rick and Morty list utilitary
     </p>
-    <p class="amountResult" >
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="darkgrey"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg>
 
-      Page: <strong>{{ currentPage}} </strong>/ {{ totalPage ? totalPage : '' }}
+    <!-- Current page -->
+    <p class="amountResult" v-if="$route.name === 'Characters'" >
+      <svg class="hide_mobile" xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="darkgrey"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg>
+      <span class="hide_mobile">Page:</span> <span class="position_mobile"><strong>{{ currentPage}} </strong> <span>/ {{ totalPage ? totalPage : '' }}</span></span>
     </p>
 
 
-
+    <!-- Back to home header -->
+    <div v-if="$route.name === 'Selected Character'" class="row justify backToHome"  @click="backToHome">
+      <vs-button circle icon dark >
+        <svg  xmlns="http://www.w3.org/2000/svg" width="12" viewBox="0 0 24 24" fill="white"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
+      </vs-button>
+      <div> Back to Home</div>
+    </div>
 
     <!-- Search input and button -->
     <div class="row search" v-if="$route.name === 'Characters'">
@@ -22,7 +29,7 @@
 
         placeholder="Search character"
         @keyup.enter="onSearchClick"/>
-      <vs-button @click="onSearchClick" flat >Search </vs-button>
+      <vs-button @click="onSearchClick" flat  style="margin: 0">Search </vs-button>
     </div>
 
 
@@ -76,7 +83,10 @@ export default {
     updateMessage () {
       this.$store.dispatch('Characters/setSearchInput', this.input)
     },
-
+    // back to home page method
+    backToHome(){
+      this.$router.push('/characters')
+    },
     // calling store GET filter by name
     filterCharacter(){
       this.$store.dispatch('Characters/fetchCharacterList', this.searchInput)
@@ -98,6 +108,21 @@ export default {
 <style scoped lang="scss">
 @import url("../../src/style/general.scss");
 
+
+@media screen and (max-width: 480px) {
+  .hide_mobile {
+    display: none!important;
+  }
+
+  .position_mobile {
+    position: fixed!important;
+    display: flex;
+    flex-direction: row;
+    right: 1rem !important;
+    top: 1rem !important;
+    width: fit-content!important;
+  }
+}
 
 body {
   background-color: #f7f8fa;
@@ -125,7 +150,7 @@ body {
 
 .search {
   position: absolute;
-  top: 2rem;
+  top: 3rem;
   right: 10%;
 }
 
@@ -147,7 +172,13 @@ body {
   flex-direction: row;
   align-items: center;
   right: 10%;
-  top: 5rem;
+  top: 5.5rem;
+}
+
+.backToHome {
+  position: absolute;
+  left: 2rem; top: 3rem;
+  align-items: baseline;
 }
 
 select {

@@ -35,7 +35,12 @@ const actions = {
       })
       .catch(()=> {
         context.commit("SET_LOADING", false)
-
+        this._vm.$vs.notification({
+          color: 'warn',
+          position: 'top-center',
+          title: 'No occurence',
+          text: `We could not find: ${context.state.searchInput}`
+        })
       })
   },
 
@@ -46,7 +51,12 @@ const actions = {
       })
       .catch(()=> {
         context.commit("SET_LOADING", false)
-
+        this._vm.$vs.notification({
+          color: 'warn',
+          position: 'top-center',
+          title: 'Error',
+          text: `There must be an server issue, please try later`
+        })
       })
   },
 
