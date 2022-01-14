@@ -9,21 +9,7 @@
 import Navbar from './components/Navbar';
 export default {
   components: { Navbar },
-  data (){
-    return {
-      searchInput: '',
-      currentPage: undefined
-    }
-  },
-  methods: {
-    onChangeInput(e){
-      this.searchInput = e
-    },
-    changePage(e){
-      this.currentPage = e
-    }
-  }
-};
+}
 </script>
 
 <style lang="scss">

@@ -74,7 +74,7 @@ export default {
       this.$store.dispatch("Characters/setPageDown")
     },
     selectCharacter(param){
-      this.$router.push({ name: 'Selected Character', params: { id: Number(param.id), character: param }})
+      this.$router.push({ name: 'Selected Character', params: { id: param.id, character: param }})
     }
   }
 

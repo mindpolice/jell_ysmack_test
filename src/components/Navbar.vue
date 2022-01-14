@@ -7,7 +7,10 @@
     <!-- Current page -->
     <p class="amountResult" v-if="$route.name === 'Characters'" >
       <svg class="hide_mobile" xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24" fill="darkgrey"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg>
-      <span class="hide_mobile">Page:</span> <span class="position_mobile"><strong>{{ currentPage}} </strong> <span>/ {{ totalPage ? totalPage : '' }}</span></span>
+      <span class="position_mobile"><strong>{{ currentPage}} </strong> <span>/ {{ totalPage ? totalPage : '' }}</span></span>
+
+      <vs-pagination class="hide_mobile" not-arrows v-model="currentPage" :length="totalPage" />
+
     </p>
 
 
@@ -60,10 +63,14 @@ export default {
   data(){
     return {
       input: '',
-      status: ''
+      status: '',
+      currentPage: 1
     }
   },
   watch:  {
+    currentPage(){
+      this.$store.dispatch('Characters/setCurrentPage', this.currentPage)
+    },
     // Pass searchInput value to parent component on cleared value
     input(){
       if(this.input === ''){
@@ -92,6 +99,7 @@ export default {
     // calling store GET filter by name
     filterCharacter(){
       this.$store.dispatch('Characters/fetchCharacterList', this.searchInput)
+      this.currentPage = 1
     },
     emptySearch(){
       this.input = ''
@@ -102,7 +110,6 @@ export default {
       totalPage: (state) => state.Characters.totalPage,
       amountFound: (state) => state.Characters.charactersAmountFound,
       charactersTotal: (state) => state.Characters.charactersTotalAmount,
-      currentPage: (state) => state.Characters.currentPage,
       searchInput: state => state.Characters.searchInput
     })
   }
@@ -119,12 +126,17 @@ export default {
   }
 
   .position_mobile {
+
     position: fixed!important;
-    display: flex;
+    display: flex!important;
     flex-direction: row;
     right: 1rem !important;
     top: 1rem !important;
     width: fit-content!important;
+  }
+
+  .hide_mobile {
+    display: none;
   }
 }
 
@@ -189,6 +201,11 @@ body {
 select {
  border-radius: 8px;
 }
+
+.position_mobile {
+  display: none;
+}
+
 
 
 </style>
