@@ -20,7 +20,9 @@
     </div>
 
     <!-- Search input and button -->
+
     <div class="row search" v-if="$route.name === 'Characters'">
+      <vs-button v-if="searchInput !== ''" dark @click="emptySearch" flat circle  style="margin: 0"><strong>X</strong></vs-button>
       <vs-input
         dark
         v-model="input"
@@ -91,7 +93,9 @@ export default {
     filterCharacter(){
       this.$store.dispatch('Characters/fetchCharacterList', this.searchInput)
     },
-
+    emptySearch(){
+      this.input = ''
+    }
   },
   computed: {
     ...mapState({

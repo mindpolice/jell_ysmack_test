@@ -49,14 +49,18 @@
 
 <script>
 import { mapState } from "vuex";
+import router from '../router';
 
 export default {
   name: 'SelectedCharacter',
   props: {
     id: Number,
-    character: Array
+    character: Object
   },
   created() {
+    // Specifying selected character in tab title
+    document.title = "Test tech" + ' - ' + this.$store.state.Characters.characterList.name
+
     // Exception handling if user refreshes the page or shares the link, will GET queried user
     if(this.character === undefined) {
       this.$store.dispatch('Characters/fetchCharacterById', this.id);

@@ -30,4 +30,19 @@ const router = new VueRouter({
   routes,
 });
 
+const DEFAULT_TITLE = 'Test tech ';
+
+
+
+router.afterEach((to) => {
+  // Use next tick to handle router history correctly
+  // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
+  Vue.nextTick(() => {
+    if(to.name === 'Selected Character') {
+      document.title = DEFAULT_TITLE + '- ' + to.name;
+    }
+  });
+});
+
+
 export default router;
