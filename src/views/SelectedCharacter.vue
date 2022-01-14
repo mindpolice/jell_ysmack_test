@@ -26,7 +26,7 @@
         <div class="separator"></div>
 
         <!-- Character informations -->
-        <div class="col infos" >
+        <div class="col infos" v-if="charactersFiltered || character">
 
             <div class="row baseline">
               <h4>Species </h4> <p>{{ character? character.species : charactersFiltered.species }}</p>
@@ -35,7 +35,7 @@
               </div>
 
             <div class="row baseline"><h4>Gender </h4> <p>{{ character? character.gender : charactersFiltered.gender }}</p></div>
-            <div class="row baseline"><h4>Origin </h4> <p>{{ character? character.origin.name : charactersFiltered.origin.name }}</p></div>
+            <div class="row baseline"  ><h4>Origin </h4> <p>{{ character? character.origin.name : charactersFiltered.origin.name }}</p></div>
             <div class="row baseline"><h4>Present in </h4> <p>{{ character? character.episode.length : charactersFiltered.episode.length }}</p> episodes</div>
 
         </div>
@@ -57,12 +57,14 @@ export default {
     id: Number,
     character: Object
   },
+
   created() {
 
     // Exception handling if user refreshes the page or shares the link, will GET queried user
     if(this.character === undefined) {
       this.$store.dispatch('Characters/fetchCharacterById', this.id);
     }
+
   },
   computed: {
     ...mapState({

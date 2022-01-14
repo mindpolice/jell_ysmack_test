@@ -5,6 +5,13 @@ import SelectedCharacter from '../views/SelectedCharacter';
 
 Vue.use(VueRouter);
 
+// casting Numeral id to Number type
+function castRouteParams(route) {
+  return {
+    id: Number(route.params.id),
+  };
+}
+
 const routes = [
   {
     path: '',
@@ -19,7 +26,7 @@ const routes = [
     path: '/characters/:id',
     name: 'Selected Character',
     component: SelectedCharacter,
-    props: true
+    props: castRouteParams
   }
 
 ];
