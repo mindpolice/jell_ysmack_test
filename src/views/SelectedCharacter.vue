@@ -58,8 +58,6 @@ export default {
     character: Object
   },
   created() {
-    // Specifying selected character in tab title
-    document.title = "Test tech" + ' - ' + this.$store.state.Characters.characterList.name
 
     // Exception handling if user refreshes the page or shares the link, will GET queried user
     if(this.character === undefined) {
